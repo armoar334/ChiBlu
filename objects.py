@@ -19,20 +19,27 @@ class entity:
 		self.icon = icon
 		self.color = color
 
-	def move(self, xinc, yinc):
-		self.x += xinc
-		self.y += yinc
+	def check(self, ch_x, ch_y, w_map):
+		return w_map[ch_x][ch_y]
 
-	def random_move(self):
+	def move(self, xinc, yinc, w_map):
+		match self.check(self.x + xinc, self.y + yinc, w_map):
+			case '#':
+				return
+			case _:
+				self.x += xinc
+				self.y += yinc
+
+	def random_move(self, w_map):
 		match random.randint(0, 3):
 			case 0:
-				self.y += 1
+				self.move(0, 1, w_map)
 			case 1:
-				self.x += 1
+				self.move(1, 0, w_map)
 			case 2:
-				self.y -= 1
+				self.move(0, -1, w_map)
 			case 3:
-				self.x -= 1
+				self.move(-1, 0, w_map)
 
 
 	def sanitise(self, xw_max, yw_max):

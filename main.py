@@ -55,6 +55,7 @@ def main(screen):
 
 		w_map = add_square(w_map, 0, 0, 10, 5, '#')
 		w_map = add_square(w_map, 1, 1, 8, 3, '.')
+		w_map[9][2] = '.'
 
 		main_loop = True
 		
@@ -78,18 +79,18 @@ def main(screen):
 				case 113:
 					main_loop = False		
 				case curses.KEY_UP:
-					player.move(0, -1)
+					player.move(0, -1, w_map)
 				case curses.KEY_DOWN:
-					player.move(0, 1)
+					player.move(0, 1, w_map)
 				case curses.KEY_LEFT:
-					player.move(-1, 0)
+					player.move(-1, 0, w_map)
 				case curses.KEY_RIGHT:
-					player.move(1, 0)
+					player.move(1, 0, w_map)
 
 			player.sanitise(xw_max, yw_max)
 
 			for temp in entities:
-				temp.random_move()
+				temp.random_move(w_map)
 				temp.sanitise(xw_max, yw_max)
 
 			# Offset
