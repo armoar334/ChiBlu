@@ -10,20 +10,36 @@ class light:
 		self.y = y
 
 class entity:
-	def __init__(self, x, y, faction, health, max_health, icon, color):
+	def __init__(self, x, y, faction, health, max_health, icon, color, name):
 		self.x = x
 		self.y = y
-		self.faction = faction
-		self.health = health
-		self.max_health = max_health
+		self.faction = str(faction)
+		self.health = int(health)
+		self.max_health = int(max_health)
 		self.icon = icon
 		self.color = color
+		self.name = name
 
-	def check(self, ch_x, ch_y, w_map):
+	def check_map(self, ch_x, ch_y, w_map):
+		if ch_x == -1 or ch_x == len(w_map):
+			return '#'
+		if ch_y == -1 or ch_y == len(w_map[0]):
+			return '#'
 		return w_map[ch_x][ch_y]
 
+	def check_ent(self, ch_x, ch_y, entities):
+		for temp in entities:
+			if temp.x == ch_x:
+				if temp.y == ch_y:
+					return temp
+				else:
+					continue
+			else:
+				continue
+		return False
+
 	def move(self, xinc, yinc, w_map):
-		match self.check(self.x + xinc, self.y + yinc, w_map):
+		match self.check_map(self.x + xinc, self.y + yinc, w_map):
 			case '#':
 				return
 			case _:
@@ -40,7 +56,6 @@ class entity:
 				self.move(0, -1, w_map)
 			case 3:
 				self.move(-1, 0, w_map)
-
 
 	def sanitise(self, xw_max, yw_max):
 		if self.x <= 0:
