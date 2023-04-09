@@ -1,2 +1,2 @@
 # ChiBlu
-A cyberpunk roguelike, set in william gibsons sprawl
+A cyberpunk roguelike, loosely based on william gibsons sprawl
